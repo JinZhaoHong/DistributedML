@@ -1,0 +1,32 @@
+package stockdatacollector;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import dataFrame.Stock;
+
+public class Main {
+	
+	public static String root = "/Users/zhjin/Desktop/projects/DistributedML/data";
+
+	public static void main(String[] args) {
+		loadStockData();
+	}
+	
+	
+	
+	public static void loadStockData() {
+		File file = new File(root + "/msft.csv");
+		Scanner c;
+		try {
+			c = new Scanner(file);
+			while (c.hasNextLine()) {
+				System.out.println(c.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

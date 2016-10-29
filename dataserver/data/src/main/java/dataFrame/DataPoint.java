@@ -3,23 +3,24 @@ package dataFrame;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+
 /**
  * 
  * @author Zhaohong Jin
  * The Data Source is Yahoo! Finance
  *
  */
-public class DataPoint {
+public class DataPoint implements Comparable<DataPoint> {
 	
 	//features
 	public String stockName;
 	public String ticker;
-	public int date; //for example, 1999/11/18 = 19991118
+	public String date; 
 	public double open; //opening price
 	public double high; //highest price of the day
 	public double low; //lowest price of the day
 	public double close; //closing price
-	public int volume; //total volume in dollars
+	public long volume; //total volume in dollars
 	
 	public LinkedList<DataPoint> fiveDayList;
 	public double movingAvaerageFiveDay; //moving average in 5 days
@@ -41,6 +42,17 @@ public class DataPoint {
 	
 	public int label; // 1 if tomorrow's closing price is higher, 0 otherwise
 	
+	
+	
+	/**
+	 * 
+	 * @param stockName
+	 * @param ticker
+	 */
+	public DataPoint(String stockName, String ticker) {
+		this.stockName = stockName;
+		this.ticker = ticker;
+	}
 	
 	
 	/**
@@ -106,7 +118,7 @@ public class DataPoint {
 	 * insert the data into the five day or ten day list
 	 * if the five day or ten day list is full, drop the oldest data
 	 */
-	public void add(DataPoint data) {
+	public void addFiveDayList(DataPoint data) {
 		if (fiveDayList == null) {
 			fiveDayList = new LinkedList<DataPoint>();
 			fiveDayList.add(data);
@@ -116,16 +128,29 @@ public class DataPoint {
 				fiveDayList.add(data);
 			}
 		}
-		
+	}
+	
+	
+	public void addTenDayList(DataPoint data) {
 		if (tenDayList == null) {
 			tenDayList = new LinkedList<DataPoint>();
 			tenDayList.add(data);
 		} else {
-			if (tenDayList.size() == 10) {
+			if (tenDayList.size() == 5) {
 				tenDayList.remove(); //remove from the head
 				tenDayList.add(data);
 			}
 		}
+	}
+	
+	
+	
+
+
+	
+	public int compareTo(DataPoint other) {
+		// TODO Auto-generated method stub
+		return this.date.compareTo(other.date);
 	}
 	
 	

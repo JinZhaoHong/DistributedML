@@ -1,0 +1,44 @@
+package dataFrame;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+public class Stock {
+	
+	public String name;
+	public String ticker;
+	public ArrayList<DataPoint> dataList;
+	public HashMap<Date, DataPoint> dataMap;
+	
+	public Stock(String name, String ticker) {
+		this.name = name;
+		this.ticker = ticker;
+		this.dataList = new ArrayList<DataPoint>();
+		this.dataMap = new HashMap<Date, DataPoint>();
+	}
+	
+	public void add (String entry) {
+		DataPoint data = new DataPoint(this.name, this.ticker);
+		
+		String[] strings = entry.split(",");
+		try {
+			Date date = (new SimpleDateFormat("dd/MM/yyyy")).parse(strings[0]);
+			data.date = date;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println(strings[0]);
+		}
+		data.open = Double.parseDouble(strings[1]);
+		data.high = Double.parseDouble(strings[2]);
+		data.low = Double.parseDouble(strings[3]);
+		data.close = Double.parseDouble(strings[4]);
+		data.volume = Double.parseDouble(strings[5]);
+	}
+	
+
+}
