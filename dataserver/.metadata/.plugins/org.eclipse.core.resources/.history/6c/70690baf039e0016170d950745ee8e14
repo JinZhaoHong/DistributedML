@@ -1,0 +1,13 @@
+package dataFrame;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Stock {
+	
+	public ArrayList<DataPoint> dataList;
+	public HashMap<DataPoint> dataMap;
+	
+	
+
+}

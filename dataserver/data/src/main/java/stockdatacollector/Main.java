@@ -1,7 +1,10 @@
 package stockdatacollector;
 
-import dataFrame.DataPoint;
+import dataFrame.Stock;
 
 public class Main {
 
+	public static void main(String[] args) {
+		
+	}
 }
