@@ -1,0 +1,14 @@
+package dataFrame;
+
+public class DataPoint {
+	
+	public int date; //for example, 1999/11/18 = 19991118
+	public float open; //open price
+	public float high; //highest price of the day
+	public float low; //lowest price of the day
+	public float close; //c
+	public int volume;
+	
+	
+	
+}

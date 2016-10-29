@@ -1,0 +1,11 @@
+package dataFrame;
+
+public interface StockObject {
+	
+	public String name;
+	public String ticker;
+	
+	public float closingPrice;
+	
+
+}
