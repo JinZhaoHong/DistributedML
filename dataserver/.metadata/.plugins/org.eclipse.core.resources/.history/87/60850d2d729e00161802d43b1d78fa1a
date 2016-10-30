@@ -23,7 +23,7 @@ public class Main {
 		loadStockData();
 		loadIndexData();
 		stock.setParameters();
-		writeToFile("/msft_combined.csv");
+		System.out.println(stock);
 	}
 	
 	
@@ -83,7 +83,7 @@ public class Main {
 					+ "ixicRateOfChangeTenDay,tnxClose,tnxMovingAverageFiveDay,tnxMovingAverageTenDay,"
 					+ "tnxRateOfChangeFiveDay,tnxRateOfChangeTenDay,vixClose,"
 					+ "vixMovingAverageFiveDay,vixMovingAverageTenDay,vixRateOfChangeFiveDay,"
-					+ "vixRateOfChangeTenDay,label \n";
+					+ "vixRateOfChangeTenDay,label";
 			writer.println(header);
 			for (String date : stock.dateList) {
 				DataPoint data = stock.dataMap.get(date);
@@ -98,9 +98,7 @@ public class Main {
 				+ data.tnxClose + "," + data.tnxMovingAverageFiveDay + "," + data.tnxMovingAverageTenDay + "," 
 				+ data.tnxRateOfChangeFiveDay + "," + data.tnxRateOfChangeTenDay + "," + data.vixClose + "," 
 				+ data.vixMovingAverageFiveDay + "," + data.vixMovingAverageTenDay + "," + data.vixRateOfChangeFiveDay + "," 
-				+ data.rateOfChangeTenDay + "," + data.label + " \n";
-				
-				writer.println(line);
+				+ data.rateOfChangeTenDay + "," + data.label    
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {

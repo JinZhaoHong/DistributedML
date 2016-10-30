@@ -6,7 +6,6 @@ import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
-import dataFrame.DataPoint;
 import dataFrame.Stock;
 
 public class Main {
@@ -23,7 +22,7 @@ public class Main {
 		loadStockData();
 		loadIndexData();
 		stock.setParameters();
-		writeToFile("/msft_combined.csv");
+		System.out.println(stock);
 	}
 	
 	
@@ -83,24 +82,10 @@ public class Main {
 					+ "ixicRateOfChangeTenDay,tnxClose,tnxMovingAverageFiveDay,tnxMovingAverageTenDay,"
 					+ "tnxRateOfChangeFiveDay,tnxRateOfChangeTenDay,vixClose,"
 					+ "vixMovingAverageFiveDay,vixMovingAverageTenDay,vixRateOfChangeFiveDay,"
-					+ "vixRateOfChangeTenDay,label \n";
+					+ "vixRateOfChangeTenDay,label";
 			writer.println(header);
 			for (String date : stock.dateList) {
 				DataPoint data = stock.dataMap.get(date);
-				String line = data.open + "," + data.high + "," + data.low + "," + data.close + "," 
-				+ data.volume + "," + data.movingAverageFiveDay + "," + data.movingAverageTenDay + "," 
-				+ data.exponentialMovingAverage + "," + data.rateOfChangeFiveDay + "," + data.rateOfChangeTenDay + "," 
-				+ data.spyClose + "," + data.spyMovingAverageFiveDay + "," + data.spyMovingAverageTenDay + "," 
-				+ data.spyRateOfChangeFiveDay + "," + data.spyRateOfChangeTenDay + "," + data.djiClose + "," 
-				+ data.djiMovingAverageFiveDay + "," + data.djiMovingAverageTenDay + "," + data.djiRateOfChangeFiveDay + "," 
-				+ data.djiRateOfChangeTenDay + "," + data.ixicClose + "," + data.ixicMovingAverageFiveDay + "," 
-				+ data.ixicMovingAverageTenDay + "," + data.ixicRateOfChangeFiveDay + "," + data.ixicRateOfChangeTenDay + "," 
-				+ data.tnxClose + "," + data.tnxMovingAverageFiveDay + "," + data.tnxMovingAverageTenDay + "," 
-				+ data.tnxRateOfChangeFiveDay + "," + data.tnxRateOfChangeTenDay + "," + data.vixClose + "," 
-				+ data.vixMovingAverageFiveDay + "," + data.vixMovingAverageTenDay + "," + data.vixRateOfChangeFiveDay + "," 
-				+ data.rateOfChangeTenDay + "," + data.label + " \n";
-				
-				writer.println(line);
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {

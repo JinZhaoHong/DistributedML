@@ -23,7 +23,7 @@ public class Main {
 		loadStockData();
 		loadIndexData();
 		stock.setParameters();
-		writeToFile("/msft_combined.csv");
+		System.out.println(stock);
 	}
 	
 	
