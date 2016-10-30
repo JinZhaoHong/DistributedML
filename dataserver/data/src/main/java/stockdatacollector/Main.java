@@ -19,6 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 		loadStockData();
 		loadIndexData();
+		stock.setParameters();
 		System.out.println(stock);
 	}
 	
@@ -31,7 +32,7 @@ public class Main {
 		Scanner c;
 		try {
 			c = new Scanner(file);
-			// skip the title line and the first line
+			// skip the title line and the first line(because it doesn't have a label
 			c.nextLine();
 			c.nextLine();
 			while (c.hasNextLine()) {
@@ -53,12 +54,11 @@ public class Main {
 			Scanner c;
 			try {
 				c = new Scanner(file);
-				// skip the title line and the first line
 				while (c.hasNextLine()) {
 					String line = c.nextLine();
 					stock.addIndexEntry(line, index);
 				}
-				//stock.debug();
+				
 				c.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

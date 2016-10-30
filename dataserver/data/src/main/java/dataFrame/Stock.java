@@ -76,12 +76,38 @@ public class Stock {
 		}
 	}
 	
-	public void debug() {
-		for (String date : dateList) {
-			DataPoint data = dataMap.get(date);
-			System.out.println(data.tnxClose);
+	/**
+	 * calculate average, ratio, etc associated with each dataPoint
+	 */
+	public void setParameters() {
+		int prev = 0;
+		int curr = 1;
+		
+		//first need to define some base cases for the first data point
+		//for our running average
+		String firstDate = dateList.get(0); 
+		DataPoint firstData = dataMap.get(firstDate);
+		firstData.setAll();
+		dataMap.put(firstDate, firstData);
+		
+		while (curr < dateList.size()) {
+			String currDate = dateList.get(curr);
+			String prevDate = dateList.get(prev);
+			DataPoint currData = dataMap.get(currDate);
+			DataPoint prevData = dataMap.get(prevDate);
+			
+			currData.addFiveDayList(prevData.fiveDayList, prevData);
+			currData.addTenDayList(prevData.tenDayList, prevData);
+			currData.setAll();
+			
+			dataMap.put(currDate, currData);
+			
+			prev += 1;
+			curr += 1;
 		}
 	}
+	
+
 	
 	
 	/**
@@ -98,7 +124,7 @@ public class Stock {
 					+ " low: " + data.low + " close: " + data.close + " volume: " + data.volume 
 					+ " spyClose: " + data.spyClose + " djiClose: " + data.djiClose + " ixicClose: " 
 					+ data.ixicClose + " tnxClose: " + data.tnxClose + " vixClose: " + data.vixClose 
-					+ " label: " + data.label + "\n";
+					+ " movingAverageFiveDay: " + data.movingAverageFiveDay + " label: " + data.label + "\n";
 		}
 		
 		return returnString;

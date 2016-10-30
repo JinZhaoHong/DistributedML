@@ -1,0 +1,293 @@
+package dataFrame;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+
+/**
+ * 
+ * @author Zhaohong Jin
+ * The Data Source is Yahoo! Finance
+ *
+ */
+public class DataPoint implements Comparable<DataPoint> {
+	
+	//features
+	public String stockName;
+	public String ticker;
+	public String date; 
+	public double open; //opening price
+	public double high; //highest price of the day
+	public double low; //lowest price of the day
+	public double close; //closing price
+	public long volume; //total volume in dollars
+	
+	public LinkedList<DataPoint> fiveDayList;
+	public LinkedList<DataPoint> tenDayList;
+	public double movingAvaerageFiveDay; //moving average in 5 days
+	public double movingAverageTenDay; //moving average in 10 days
+	public double exponentialMovingAverage; // EMA (t) = EMA (t-1) + alpha * (Price (t) - EMA (t-1)) Where, alpha = 2/ (N+1), Thus, for N=9, alpha = 0.20
+	public double rateOfChangeFiveDay; // The ratio of the current price to the price 5 quotes earlier
+	public double rateOfChangeTenDay; // The ratio of the current price to the price 10 quotes earlier
+	
+	public double spyClose; //closing price of S&P500 that day
+	public double spyMovingAvaerageFiveDay;
+	public double spyMovingAverageTenDay;
+	public double spyRateOfChangeFiveDay;
+	public double spyRateOfChangeTenDay;
+	
+	public double djiClose; //closing price of Dow Jones that day
+	public double djiMovingAvaerageFiveDay;
+	public double djiMovingAverageTenDay;
+	public double djiRateOfChangeFiveDay;
+	public double djiRateOfChangeTenDay;
+	
+	public double ixicClose; //closing price of Nasdaq that day
+	public double ixicMovingAvaerageFiveDay;
+	public double ixicMovingAverageTenDay;
+	public double ixicRateOfChangeFiveDay;
+	public double ixicRateOfChangeTenDay;
+	
+	public double tnxClose; //closing price of 10-yr bond that day
+	public double tnxMovingAvaerageFiveDay;
+	public double tnxMovingAverageTenDay;
+	public double tnxRateOfChangeFiveDay;
+	public double tnxRateOfChangeTenDay;
+	
+	public double vixClose; //closing volatility of S&P500 that day
+	public double vixMovingAvaerageFiveDay;
+	public double vixMovingAverageTenDay;
+	public double vixRateOfChangeFiveDay;
+	public double vixRateOfChangeTenDay;
+	
+	
+	public final double alpha = 0.20; //hyperparameter
+	
+	public int label; // 1 if tomorrow's closing price is higher, 0 otherwise
+	
+	
+	
+	/**
+	 * 
+	 * @param stockName
+	 * @param ticker
+	 */
+	public DataPoint(String stockName, String ticker) {
+		this.stockName = stockName;
+		this.ticker = ticker;
+	}
+	
+	
+	/**
+	 * update the current five day and ten day moving average up to today
+	 * if the list contains less than five data, we still calculate the average 
+	 */
+	public void setFiveDayMovingAverage() {
+		if (fiveDayList != null) {
+			int size = fiveDayList.size();
+			
+			int runningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : fiveDayList) {
+					runningSum += data.close;
+				}
+				movingAvaerageFiveDay = (double) runningSum / (double) size;		
+			}
+			
+			int spyRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : fiveDayList) {
+					spyRunningSum += data.spyClose;
+				}
+				movingAvaerageFiveDay = (double) spyRunningSum / (double) size;		
+			}
+			
+			
+			int djiRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : fiveDayList) {
+					djiRunningSum += data.djiClose;
+				}
+				movingAvaerageFiveDay = (double) djiRunningSum / (double) size;		
+			}
+			
+			int ixicRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : fiveDayList) {
+					ixicRunningSum += data.ixicClose;
+				}
+				movingAvaerageFiveDay = (double) ixicRunningSum / (double) size;		
+			}
+			
+			
+			int tnxRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : fiveDayList) {
+					tnxRunningSum += data.tnxClose;
+				}
+				movingAvaerageFiveDay = (double) tnxRunningSum / (double) size;		
+			}
+			
+			int vixRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : fiveDayList) {
+					vixRunningSum += data.vixClose;
+				}
+				movingAvaerageFiveDay = (double) vixRunningSum / (double) size;		
+			}
+			
+			
+		}
+	}
+	
+	/**
+	 * update the current five day and ten day moving average up to today
+	 * if the list contains less than five data, we still calculate the average 
+	 */
+	public void setTenYearMovingAverage() {
+		if (tenDayList != null) {
+			int size = tenDayList.size();
+			
+			int runningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : tenDayList) {
+					runningSum += data.close;
+				}
+				movingAverageTenDay = (double) runningSum / (double) size;	
+				
+			}
+			
+			int spyRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : tenDayList) {
+					spyRunningSum += data.spyClose;
+				}
+				movingAvaerageFiveDay = (double) spyRunningSum / (double) size;		
+			}
+			
+			
+			int djiRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : tenDayList) {
+					djiRunningSum += data.djiClose;
+				}
+				movingAvaerageFiveDay = (double) djiRunningSum / (double) size;		
+			}
+			
+			int ixicRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : tenDayList) {
+					ixicRunningSum += data.ixicClose;
+				}
+				movingAvaerageFiveDay = (double) ixicRunningSum / (double) size;		
+			}
+			
+			
+			int tnxRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : tenDayList) {
+					tnxRunningSum += data.tnxClose;
+				}
+				movingAvaerageFiveDay = (double) tnxRunningSum / (double) size;		
+			}
+			
+			int vixRunningSum = 0;
+			if (size != 0) {
+				for (DataPoint data : tenDayList) {
+					vixRunningSum += data.vixClose;
+				}
+				movingAvaerageFiveDay = (double) vixRunningSum / (double) size;		
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * 
+	 * EMA (t) = EMA (t-1) + alpha * (Price (t) - EMA (t-1))
+	 */
+	public void setExponentialMovingAverage() {
+		DataPoint prev = fiveDayList.peekLast();
+		this.exponentialMovingAverage = prev + alpha * (this.close - prev);
+	}
+	
+	
+	/**
+	 * update the ratio of the current price to the price 5 or 10 quotes earlier
+	 * if the five day or ten day data is not available (less than 5 or 10), use the oldest available data
+	 */
+	public void setRateOfChange() {
+		if (fiveDayList != null) {
+			DataPoint last = fiveDayList.peekFirst();
+			rateOfChangeFiveDay = close / last.close;
+			spyRateOfChangeFiveDay = spyClose / last.spyClose;
+			djiRateOfChangeFiveDay = djiClose / last.djiClose;
+			ixicRateOfChangeFiveDay = ixicClose / last.ixicClose;
+			tnxRateOfChangeFiveDay = tnxClose / last.tnxClose;
+			vixRateOfChangeFiveDay = vixClose / last.vixClose;
+		}
+		
+		if (tenDayList != null) {
+			DataPoint last = tenDayList.peekFirst();
+			rateOfChangeTenDay = close / last.close;
+			spyRateOfChangeTenDay = spyClose / last.spyClose;
+			djiRateOfChangeTenDay = djiClose / last.djiClose;
+			ixicRateOfChangeTenDay = ixicClose / last.ixicClose;
+			tnxRateOfChangeTenDay = tnxClose / last.tnxClose;
+			vixRateOfChangeTenDay = vixClose / last.vixClose;
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @param data
+	 * insert the data into the five day or ten day list
+	 * if the five day or ten day list is full, drop the oldest data
+	 */
+	public void addFiveDayList(DataPoint data) {
+		if (fiveDayList == null) {
+			fiveDayList = new LinkedList<DataPoint>();
+			fiveDayList.add(data); //insert into the tail
+		} else {
+			if (fiveDayList.size() == 5) {
+				fiveDayList.remove(); //remove from the head
+				fiveDayList.add(data);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param data
+	 * insert the data into the five day or ten day list
+	 * if the five day or ten day list is full, drop the oldest data
+	 */
+	public void addTenDayList(DataPoint data) {
+		if (tenDayList == null) {
+			tenDayList = new LinkedList<DataPoint>();
+			tenDayList.add(data); //insert into the tail
+		} else {
+			if (tenDayList.size() == 10) {
+				tenDayList.remove(); //remove from the head
+				tenDayList.add(data);
+			}
+		}
+	}
+	
+	
+	
+
+
+	
+	public int compareTo(DataPoint other) {
+		// TODO Auto-generated method stub
+		return this.date.compareTo(other.date);
+	}
+	
+	
+	
+	
+	
+}
