@@ -6,8 +6,13 @@ Distributed Machine Learning for Stock Price Prediction
 
 2. The current plan is to store this stock data into the Hadoop Distributed File System(HDFS) so that it is scalable to multiple machines. How to set up HDFS can be found here: http://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html
 
-3. A data preprossing 
-
+3. A data preprossing program in Java will select features and clean data from the initial raw Yahoo! Finance csv files. Some of the features are inspired based on these two research papers:
+  
+  (1) Machine Learning Techniques for Stock Prediction, Vatsal H. Shah
+  http://www.vatsals.com/Essays/MachineLearningTechniquesforStockPrediction.pdf
+  
+  (2) Machine Learning in Stock Price Trend Forecasting, Yuqing Dai, Yuning Zhang
+  http://cs229.stanford.edu/proj2013/DaiZhang-MachineLearningInStockPriceTrendForecasting.pdf
 
 
 
