@@ -13,7 +13,10 @@ Distributed Machine Learning for Stock Price Prediction
   
   (2) Machine Learning in Stock Price Trend Forecasting, Yuqing Dai, Yuning Zhang
   http://cs229.stanford.edu/proj2013/DaiZhang-MachineLearningInStockPriceTrendForecasting.pdf
+  
+  Here is a list of features used in this program:
+  For a particular stock: 'Open, High, Low, Adjusted Close, Five Day Moving Average, Ten Day Moving Average, Exponential Moving Average, Rate of Change Five Day, Rate of Change Ten Day'
 
 
-
+4. Work flow chart.
 ![Alt text](https://github.com/JinZhaoHong/DistributedML/blob/master/img/Screen%20Shot%202016-10-27%20at%2011.56.56%20AM.png?raw=true "Optional Title")
