@@ -15,7 +15,7 @@ Distributed Machine Learning for Stock Price Prediction
   http://cs229.stanford.edu/proj2013/DaiZhang-MachineLearningInStockPriceTrendForecasting.pdf
   
   Here is a list of features used in this program:
-  For a particular stock: 'Open, High, Low, Adjusted Close, Five Day Moving Average, Ten Day Moving Average, Exponential Moving Average, Rate of Change Five Day, Rate of Change Ten Day'
+  For a particular stock: Open, High, Low, Close, Five Day Moving Average, Ten Day Moving Average, Exponential Moving Average, Rate of Change Five Day, Rate of Change Ten Day. Also, the Associated S&P500 ETF, Dow Jones, Nasdaq, 10-year bond, and S&P500 VIX's Close, Five Day Moving Average, Ten Day Moving Average, Rate of Change Five Day, Rate of Change Ten Day.
 
 
 4. Work flow chart.
