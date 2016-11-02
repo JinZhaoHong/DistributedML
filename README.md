@@ -16,7 +16,11 @@ Distributed Machine Learning for Stock Price Prediction
   
   Here is a list of features used in this program:
   For a particular stock: Open, High, Low, Close, Five Day Moving Average, Ten Day Moving Average, Exponential Moving Average, Rate of Change Five Day, Rate of Change Ten Day. Also, the Associated S&P500 ETF, Dow Jones, Nasdaq, 10-year bond, and S&P500 VIX's Close, Five Day Moving Average, Ten Day Moving Average, Rate of Change Five Day, Rate of Change Ten Day.
+  
+  The result will be stored in the HDFS as well.
+
+4. Server. The Server will be written in Node JS(Try out new technologies). The Machine Learning Algorithm will be written in Python(Using SKLearn or Tensorflow). The Server will run Machine Learning on the backend and read the input datafile from HDFS(cold data) and store the trained model in a database(hot data). This scheme ensures that we can frequently update the model or retrive the model for the prediction.
 
 
-4. Work flow chart.
+5. Work flow chart.
 ![Alt text](https://github.com/JinZhaoHong/DistributedML/blob/master/img/Screen%20Shot%202016-10-27%20at%2011.56.56%20AM.png?raw=true "Optional Title")
