@@ -1,10 +1,16 @@
 package stockdatacollector;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
+
+
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 import dataFrame.DataPoint;
 import dataFrame.Stock;
@@ -13,7 +19,8 @@ public class Main {
 	
 	public static Stock stock;
 	
-	public static String root = "/Users/zhjin/Desktop/projects/DistributedML/data";
+	public static String hdfs = "hdfs://localhost:9000";
+	public static String root = "hdfs://localhost:9000/user/zhjin/mlinput/data";
 	public static String stockName = "Microsoft";
 	public static String ticker = "MSFT";
 	public static String[] indexList = {"spy", "dji", "ixic", "tnx", "vix"};
@@ -27,43 +34,76 @@ public class Main {
 	}
 	
 	
-	
+	/**
+	 * This file I/O supports only HDFS, not the regular local file system
+	 */
 	public static void loadStockData() {
 		stock = new Stock(stockName, ticker);
 		
-		File file = new File(root + "/msft.csv");
-		Scanner c;
+		Path path = new Path(root + "/msft.csv"); //for HDFS use 
 		try {
-			c = new Scanner(file);
+			Configuration conf = new Configuration();
+			conf.set("fs.defaultFS", "hdfs://localhost:9000");
+			// see this post on stack overflow http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
+		    conf.set("fs.hdfs.impl", 
+		            org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
+		        );
+		    conf.set("fs.file.impl",
+		            org.apache.hadoop.fs.LocalFileSystem.class.getName()
+		        );
+			FileSystem fs = FileSystem.get(conf);
+			BufferedReader c = new BufferedReader(new InputStreamReader(fs.open(path)));
 			// skip the title line and the first line(because it doesn't have a label
-			c.nextLine();
-			c.nextLine();
-			while (c.hasNextLine()) {
-				String line = c.nextLine();
+			c.readLine();
+			c.readLine();
+			String line = c.readLine();
+			while (line != null) {
 				stock.addStockEntry(line);
-				
+				line = c.readLine();
 			}
 			c.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	
+	/**
+	 * This file I/O supports only HDFS, not the regular local file system
+	 */
 	public static void loadIndexData() {
 		for (String index : indexList) {
-			File file = new File(root + "/" + index + ".csv");
-			Scanner c;
+			
 			try {
-				c = new Scanner(file);
-				while (c.hasNextLine()) {
-					String line = c.nextLine();
+				
+				Path path = new Path(root + "/" + index + ".csv");
+				Configuration conf = new Configuration();
+				conf.set("fs.defaultFS", "hdfs://localhost:9000");
+				// see this post on stack overflow http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
+			    conf.set("fs.hdfs.impl", 
+			            org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
+			        );
+			    conf.set("fs.file.impl",
+			            org.apache.hadoop.fs.LocalFileSystem.class.getName()
+			        );
+				FileSystem fs = FileSystem.get(conf);
+				BufferedReader c = new BufferedReader(new InputStreamReader(fs.open(path)));
+				
+				String line = c.readLine();
+				
+				while (line != null) {
 					stock.addIndexEntry(line, index);
+					line = c.readLine();
 				}
 				
 				c.close();
 			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -72,8 +112,20 @@ public class Main {
 	
 	public static void writeToFile(String file) {
 		try {
-			PrintWriter writer = new PrintWriter(root + file, "UTF-8");
-			String header = "Open,high,low,close,volume,movingAverageFiveDay,"
+			Path path = new Path(root + file);
+			Configuration conf = new Configuration();
+			conf.set("fs.defaultFS", "hdfs://localhost:9000");
+			// see this post on stack overflow http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
+		    conf.set("fs.hdfs.impl", 
+		            org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
+		        );
+		    conf.set("fs.file.impl",
+		            org.apache.hadoop.fs.LocalFileSystem.class.getName()
+		        );
+			FileSystem fs = FileSystem.get(conf);
+			BufferedWriter writer =new BufferedWriter(new OutputStreamWriter(fs.create(path,true)));
+			
+			String header = "Date,Open,high,low,close,volume,movingAverageFiveDay,"
 					+ "movingAverageTenDay,exponentialMovingAverage,rateOfChangeFiveDay,"
 					+ "rateOfChangeTenDay,spyClose,spyMovingAverageFiveDay,"
 					+ "spyMovingAverageTenDay,spyRateOfChangeFiveDay,spyRateOfChangeTenDay,"
@@ -84,10 +136,10 @@ public class Main {
 					+ "tnxRateOfChangeFiveDay,tnxRateOfChangeTenDay,vixClose,"
 					+ "vixMovingAverageFiveDay,vixMovingAverageTenDay,vixRateOfChangeFiveDay,"
 					+ "vixRateOfChangeTenDay,label \n";
-			writer.println(header);
+			writer.write(header);
 			for (String date : stock.dateList) {
 				DataPoint data = stock.dataMap.get(date);
-				String line = data.open + "," + data.high + "," + data.low + "," + data.close + "," 
+				String line = data.date + "," + data.open + "," + data.high + "," + data.low + "," + data.close + "," 
 				+ data.volume + "," + data.movingAverageFiveDay + "," + data.movingAverageTenDay + "," 
 				+ data.exponentialMovingAverage + "," + data.rateOfChangeFiveDay + "," + data.rateOfChangeTenDay + "," 
 				+ data.spyClose + "," + data.spyMovingAverageFiveDay + "," + data.spyMovingAverageTenDay + "," 
@@ -100,13 +152,13 @@ public class Main {
 				+ data.vixMovingAverageFiveDay + "," + data.vixMovingAverageTenDay + "," + data.vixRateOfChangeFiveDay + "," 
 				+ data.rateOfChangeTenDay + "," + data.label + " \n";
 				
-				writer.println(line);
+				writer.write(line);
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

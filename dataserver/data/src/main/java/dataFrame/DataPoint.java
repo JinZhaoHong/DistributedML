@@ -238,38 +238,62 @@ public class DataPoint implements Comparable<DataPoint> {
 	public void setRateOfChange() {
 		if (fiveDayList != null) {
 			DataPoint last = fiveDayList.peekFirst();
-			rateOfChangeFiveDay = (close - last.close) / last.close;
-			spyRateOfChangeFiveDay = (spyClose - last.spyClose) / last.spyClose;
-			djiRateOfChangeFiveDay = (djiClose - last.djiClose) / last.djiClose;
-			ixicRateOfChangeFiveDay = (ixicClose - last.ixicClose) / last.ixicClose;
-			tnxRateOfChangeFiveDay = (tnxClose - last.tnxClose) / last.tnxClose;
-			vixRateOfChangeFiveDay = (vixClose - last.vixClose) / last.vixClose;
+			if (last.close != 0) {
+				rateOfChangeFiveDay = (close - last.close) / last.close;
+			}
+			if (last.spyClose != 0) {
+				spyRateOfChangeFiveDay = (spyClose - last.spyClose) / last.spyClose;
+			}
+			if (last.djiClose != 0) {
+				djiRateOfChangeFiveDay = (djiClose - last.djiClose) / last.djiClose;
+			}
+			if (last.ixicClose != 0) {
+				ixicRateOfChangeFiveDay = (ixicClose - last.ixicClose) / last.ixicClose;
+			}
+			if (last.tnxClose != 0) {
+				tnxRateOfChangeFiveDay = (tnxClose - last.tnxClose) / last.tnxClose;
+			}
+			if (last.vixClose != 0) {
+				vixRateOfChangeFiveDay = (vixClose - last.vixClose) / last.vixClose;
+			}
 		} else {
-			rateOfChangeFiveDay = 1;
-			spyRateOfChangeFiveDay = 1;
-			djiRateOfChangeFiveDay = 1;
-			ixicRateOfChangeFiveDay = 1;
-			tnxRateOfChangeFiveDay = 1;
-			vixRateOfChangeFiveDay = 1;
+			rateOfChangeFiveDay = 0;
+			spyRateOfChangeFiveDay = 0;
+			djiRateOfChangeFiveDay = 0;
+			ixicRateOfChangeFiveDay = 0;
+			tnxRateOfChangeFiveDay = 0;
+			vixRateOfChangeFiveDay = 0;
 			
 		}
 		
 		if (tenDayList != null) {
 			DataPoint last = tenDayList.peekFirst();
-			rateOfChangeTenDay = (close - last.close) / last.close;
-			spyRateOfChangeTenDay = (spyClose - last.spyClose) / last.spyClose;
-			djiRateOfChangeTenDay = (djiClose - last.djiClose) / last.djiClose;
-			ixicRateOfChangeTenDay = (ixicClose - last.ixicClose) / last.ixicClose;
-			tnxRateOfChangeTenDay = (tnxClose - last.tnxClose) / last.tnxClose;
-			vixRateOfChangeTenDay = (vixClose - last.vixClose) / last.vixClose;
+			if (last.close != 0) {
+				rateOfChangeTenDay = (close - last.close) / last.close;
+			}
+			if (last.spyClose != 0) {
+				spyRateOfChangeTenDay = (spyClose - last.spyClose) / last.spyClose;
+			}
+			if (last.djiClose != 0) {
+				djiRateOfChangeTenDay = (djiClose - last.djiClose) / last.djiClose;
+			}
+			if (last.ixicClose != 0) {
+				ixicRateOfChangeTenDay = (ixicClose - last.ixicClose) / last.ixicClose;
+			}
+			if (last.tnxClose != 0) {
+				tnxRateOfChangeTenDay = (tnxClose - last.tnxClose) / last.tnxClose;
+			}
+			if (last.vixClose != 0) {
+				vixRateOfChangeTenDay = (vixClose - last.vixClose) / last.vixClose;
+			}
 		} else {
 		
-			rateOfChangeTenDay = 1;
-			spyRateOfChangeTenDay = 1;
-			djiRateOfChangeTenDay = 1;
-			ixicRateOfChangeTenDay = 1;
-			tnxRateOfChangeTenDay = 1;
-			vixRateOfChangeTenDay = 1;
+			rateOfChangeTenDay = 0;
+			spyRateOfChangeTenDay = 0;
+			djiRateOfChangeTenDay = 0;
+			ixicRateOfChangeTenDay = 0;
+			tnxRateOfChangeTenDay = 0;
+			vixRateOfChangeTenDay = 0;
 		}
 		
 	}
