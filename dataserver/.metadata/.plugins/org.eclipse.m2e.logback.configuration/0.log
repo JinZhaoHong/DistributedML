@@ -2867,3 +2867,11 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact tulos:bberg-s
 2016-11-02 23:41:18,451 [main] INFO  o.e.m2e.actions.ExecutePomAction - Using existing launch configuration
 2016-11-02 23:41:18,517 [Worker-177] INFO  o.e.m.i.launch.MavenLaunchDelegate - /Users/zhjin/Desktop/projects/DistributedML/dataserver/data
 2016-11-02 23:41:18,517 [Worker-177] INFO  o.e.m.i.launch.MavenLaunchDelegate -  mvn  -B package
+2016-11-02 23:45:58,566 [Worker-182] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2016-11-02 23:45:58,567 [Worker-182] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2016-11-02 23:45:58,568 [Worker-182] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2016-11-02 23:45:58,569 [Worker-182] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2016-11-02 23:46:03,724 [Worker-177] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2016-11-02 23:46:03,724 [Worker-177] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2016-11-02 23:46:03,725 [Worker-177] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+2016-11-02 23:46:03,726 [Worker-177] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
