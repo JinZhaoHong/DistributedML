@@ -9,8 +9,11 @@ import org.apache.hadoop.fs.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Scanner;
+
 
 import dataFrame.DataPoint;
 import dataFrame.Stock;
@@ -24,18 +27,52 @@ public class Main {
 	
 	public static Stock stock;
 	
-	public static String hdfs = "hdfs://localhost:9000";
-	public static String root = "hdfs://localhost:9000/user/zhjin/mlinput/data";
-	public static String stockName = "Microsoft";
-	public static String ticker = "MSFT";
-	public static String[] indexList = {"spy", "dji", "ixic", "tnx", "vix"};
+	public static String hdfs;
+	public static String root;
+	public static String stockfile;
+	public static String stockName;
+	public static String ticker;
+	public static String[] indexList;
+	public static String destinationfile;
 
 	
 	public static void main(String[] args) {
+		if (args.length == 0) {
+			System.out.println("[Usage] java -classpath name.jar stockdatacollector.Main config");
+			return;
+		}
+		readConfiguration(args);
 		loadStockData();
 		loadIndexData();
 		stock.setParameters();
-		writeToFile("/msft_combined.csv");
+		writeToFile("/" + destinationfile);
+	}
+	
+	public static void readConfiguration(String[] args) {
+		File file = new File(args[0]);
+		try {
+			Scanner c = new Scanner(file);
+			hdfs = c.nextLine().split(",")[1];
+			root = c.nextLine().split(",")[1];
+			stockfile = c.nextLine().split(",")[1];
+			stockName = c.nextLine().split(",")[1];
+			ticker = c.nextLine().split(",")[1];
+			indexList = c.nextLine().split(",")[1].split(" ");
+			destinationfile = c.nextLine().split(",")[1];
+			
+			System.out.println(hdfs);
+			System.out.println(root);
+			System.out.println(stockfile);
+			System.out.println(stockName);
+			System.out.println(ticker);
+			System.out.println(indexList[0]);
+			System.out.println(destinationfile);
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
@@ -45,10 +82,10 @@ public class Main {
 	public static void loadStockData() {
 		stock = new Stock(stockName, ticker);
 		
-		Path path = new Path(root + "/msft.csv"); //for HDFS use 
+		Path path = new Path(root + "/" + stockfile); //for HDFS use 
 		try {
 			Configuration conf = new Configuration();
-			conf.set("fs.defaultFS", "hdfs://localhost:9000");
+			conf.set("fs.defaultFS", hdfs);
 			// see this post on stack overflow http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
 		    conf.set("fs.hdfs.impl", 
 		            org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
@@ -84,9 +121,9 @@ public class Main {
 			
 			try {
 				
-				Path path = new Path(root + "/" + index + ".csv");
+				Path path = new Path(root + "/" + index);
 				Configuration conf = new Configuration();
-				conf.set("fs.defaultFS", "hdfs://localhost:9000");
+				conf.set("fs.defaultFS", hdfs);
 				// see this post on stack overflow http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
 			    conf.set("fs.hdfs.impl", 
 			            org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
@@ -119,7 +156,7 @@ public class Main {
 		try {
 			Path path = new Path(root + file);
 			Configuration conf = new Configuration();
-			conf.set("fs.defaultFS", "hdfs://localhost:9000");
+			conf.set("fs.defaultFS", hdfs);
 			// see this post on stack overflow http://stackoverflow.com/questions/17265002/hadoop-no-filesystem-for-scheme-file
 		    conf.set("fs.hdfs.impl", 
 		            org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
