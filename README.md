@@ -40,7 +40,7 @@ Node.js
 
 6. Front End(Clint Side). Will be hosted on the Github. 
 
-7. Work flow chart.
+## Work flow chart.
 ![Alt text](https://github.com/JinZhaoHong/DistributedML/blob/master/img/workflow.png?raw=true "Optional Title")
 
 ## Machine Learning
