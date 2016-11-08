@@ -13,10 +13,11 @@ class YahooFinanceAPI:
         self.baseurl = "https://query.yahooapis.com/v1/public/yql?"
     
     def get(self):
-        yql_query = "select * from yahoo.finance.quotes where symbol in ('YHOO','AAPL','GOOG','MSFT')"
+        yql_query = "select * from yahoo.finance.quotes where symbol = 'MSFT'"
         yql_url = self.baseurl + urllib.urlencode({'q':yql_query}) + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback="
         result = urllib2.urlopen(yql_url).read()
         data = json.loads(result)
+        #return data['query']['results']['quote']
         return data
 
 # https://github.com/dpkp/kafka-python
