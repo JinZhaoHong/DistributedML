@@ -41,7 +41,7 @@ Node.js
 6. Front End(Clint Side). Will be hosted on the Github. 
 
 7. Work flow chart.
-![Alt text](https://github.com/JinZhaoHong/DistributedML/blob/master/img/Screen%20Shot%202016-10-27%20at%2011.56.56%20AM.png?raw=true "Optional Title")
+![Alt text](https://github.com/JinZhaoHong/DistributedML/blob/master/img/workflow.png?raw=true "Optional Title")
 
 ## Machine Learning
 1. The machine learning algorithm requires(recommends)python anaconda distribution, which can be downloaded and installed here: https://www.continuum.io/downloads
