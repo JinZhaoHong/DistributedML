@@ -135,41 +135,87 @@ def getSparkSessionInstance(sparkConf):
     return globals()['sparkSessionSingletonInstance']
 
 
+
+def getAccumulators(sparkContext):
+    if ('counter' not in globals()):
+        globals()['counter'] = sparkContext.accumulator(1.0)
+    if ('askMovingAverage' not in globals()):
+        globals()['askMovingAverage'] = sparkContext.accumulator(0.0)
+    if ('bidMovingAverage' not in globals()):
+        globals()['bidMovingAverage'] = sparkContext.accumulator(0.0)
+    if ('askExponentialMovingAverage' not in globals()):
+        globals()['askExponentialMovingAverage'] = sparkContext.accumulator(0.0)
+    if ('bidExponentialMovingAverage' not in globals()):
+        globals()['bidExponentialMovingAverage'] = sparkContext.accumulator(0.0)
+    return (globals()['counter'], globals()['askMovingAverage'], globals()['bidMovingAverage'], globals()['askExponentialMovingAverage'], globals()['bidExponentialMovingAverage'])
+
+
+
+def process(rdd):
+
+    spark = None
+    quoteDataFrame = None
+
+    counter, askMovingAverage, bidMovingAverage, askExponentialMovingAverage, bidExponentialMovingAverage = getAccumulators(sc)
+
+    try: # Must use try and catch, otherwise will get exceptions
+        # Get the singleton instance of SparkSession
+        spark = getSparkSessionInstance(conf)
+
+        tickerQuoteDataFrame = spark.read.json(rdd)
+
+        # Creates a temporary view using the DataFrame.
+        tickerQuoteDataFrame.createOrReplaceTempView("ticker_table")
+
+        # Please print out and read schema before doing query
+        quoteDataFrame = spark.sql("select query.created, query.results.quote.* from ticker_table")
+        #quoteDataFrame.printSchema()
+
+    except:
+        pass
+
+    # Move this statement outside for debugging purposes. Otherwise no exceptions will ever be thrown
+    if quoteDataFrame != None:
+
+        insert_statment = session.prepare('INSERT INTO ticker JSON ?')
+        session.execute(insert_statment, quoteDataFrame.toJSON().collect()) 
+
+
+        # Some data analytics: calculate the expoential moving average and moving average
+        # get the askPrice and bidPrice directly from each piece of data in Dataframe
+        askPrice = float(spark.sql("select query.results.quote.Ask from ticker_table").rdd.collect()[0]['Ask'])
+        bidPrice = float(spark.sql("select query.results.quote.Bid from ticker_table").rdd.collect()[0]['Bid'])
+
+
+        alpha = float(2) / (counter.value + 1)
+
+        if askExponentialMovingAverage.value == 0:
+            askExponentialMovingAverage.add(askPrice)
+        else:
+            askExponentialMovingAverage.add(alpha * (askPrice - askExponentialMovingAverage.value))
+
+        if bidExponentialMovingAverage.value == 0:
+            bidExponentialMovingAverage.add(bidPrice)
+        else:
+            bidExponentialMovingAverage.add(alpha * (bidPrice - bidExponentialMovingAverage.value))
+
+        globals()['askMovingAverage'] = sc.accumulator(float(askMovingAverage.value * (counter.value - 1) + askPrice) / counter.value)
+
+        globals()['bidMovingAverage'] = sc.accumulator(float(bidMovingAverage.value * (counter.value - 1) + bidPrice) / counter.value)
+
+
+        print (counter.value, askMovingAverage.value, bidMovingAverage.value, askExponentialMovingAverage.value, bidExponentialMovingAverage.value)
+
+        counter.add(1)
+
+
 def streamProcess(topic, brokers):
+
     # read streaming data directly from kafka
     directKafkaStream = KafkaUtils.createDirectStream(ssc, [topic], {"metadata.broker.list": brokers})
 
     # get the json object of the stock data
     lines = directKafkaStream.map(lambda x: x[1])
-
-
-    def process(rdd):
-
-        spark = None
-        QuoteDataFrame = None
-
-        try: # Must use try and catch, otherwise will get exceptions
-            # Get the singleton instance of SparkSession
-            spark = getSparkSessionInstance(conf)
-
-            tickerQuoteDataFrame = spark.read.json(rdd)
-
-            # Creates a temporary view using the DataFrame.
-            tickerQuoteDataFrame.createOrReplaceTempView("ticker_table")
-
-            # Please print out and read schema before doing query
-            QuoteDataFrame = spark.sql("select query.created, query.results.quote.* from ticker_table")
-            QuoteDataFrame.printSchema()
-
-        except:
-            pass
-
-        # Move this statement outside for debuggin purposes. Otherwise no exceptions will ever be thrown
-        if QuoteDataFrame != None:
-
-            insert_statment = session.prepare('INSERT INTO ticker JSON ?')
-            session.execute(insert_statment, QuoteDataFrame.toJSON().collect()) 
-
 
     lines.foreachRDD(process)
 
