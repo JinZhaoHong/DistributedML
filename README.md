@@ -46,3 +46,27 @@ Node.js
 ## Machine Learning
 1. The machine learning algorithm requires(recommends)python anaconda distribution, which can be downloaded and installed here: https://www.continuum.io/downloads
 
+## Set Up(Python, with assumption that you've installed homebrew and python anaconda distribution)
+## You can skip the set-up part if you choose to use the set-up.sh file provided. 
+
+1. Get familiar with Apache Kafka. http://kafka.apache.org/quickstart
+
+2. Install Apache Kafka using brew install kafka. In addition, install python API using pip install kafka-python.
+
+3. Get familiar with Apache Spark(Spark Core, Spark Streaming, and Spark Dataframe). http://spark.apache.org/docs/latest/index.html
+
+4. Install Apache Spark using brew install apache-spark
+
+5. Get familiar with Apache Cassandra http://cassandra.apache.org/
+
+6. Install Apache Cassandra using brew install cassandra. In addition, intall python API using pip install cassandra-driver
+
+## Start the server
+
+3. To start Apache Kafka on a single machine, go to your installed Apache Kafka folder (If you use brew install Kafka, it will be installed under /usr/local/Cellar) and execute bin/zookeeper-server-start.sh config/zookeeper.properties. After you start the instance, execute bin/kafka-server-start.sh config/server.properties to start the kafka server. 
+
+4. Create a topic "quotes". bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic quotes
+
+5. 
+
+
