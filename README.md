@@ -48,6 +48,7 @@ Node.js
 
 ## Set Up(Python, with assumption that you've installed homebrew and python anaconda distribution)
 Passwordless localhost login
+
 1. ssh-keygen -t rsa Press enter for each line 
 
 2. cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
