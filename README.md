@@ -47,6 +47,12 @@ Node.js
 1. The machine learning algorithm requires(recommends)python anaconda distribution, which can be downloaded and installed here: https://www.continuum.io/downloads
 
 ## Set Up(Python, with assumption that you've installed homebrew and python anaconda distribution)
+Passwordless localhost login
+1. ssh-keygen -t rsa Press enter for each line 
+
+2. cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+3. chmod og-wx ~/.ssh/authorized_keys
 ## You can skip the set-up part if you choose to use the set-up.sh file provided. 
 
 1. Get familiar with Apache Kafka. http://kafka.apache.org/quickstart
