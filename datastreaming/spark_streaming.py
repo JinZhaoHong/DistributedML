@@ -20,6 +20,7 @@ ssc = StreamingContext(sc, 30)
 
 
 # This will attempt to connection to a Cassandra instance on the local machine (127.0.0.1)
+# http://datastax.github.io/python-driver/getting_started.html
 cluster = Cluster()
 session = cluster.connect()
 
@@ -162,6 +163,7 @@ def process(rdd):
         # Get the singleton instance of SparkSession
         spark = getSparkSessionInstance(conf)
 
+        # Schema is automatically inferred from the rdd. Convert rdd into dataframe for sql process
         tickerQuoteDataFrame = spark.read.json(rdd)
 
         # Creates a temporary view using the DataFrame.
@@ -177,7 +179,10 @@ def process(rdd):
     # Move this statement outside for debugging purposes. Otherwise no exceptions will ever be thrown
     if quoteDataFrame != None:
 
+        # http://www.datastax.com/dev/blog/whats-new-in-cassandra-2-2-json-support
         insert_statment = session.prepare('INSERT INTO ticker JSON ?')
+        # convert the dataframe back to an RDD[String] that contains the JSON records
+        # http://stackoverflow.com/questions/31473215/how-to-convert-dataframe-to-json
         session.execute(insert_statment, quoteDataFrame.toJSON().collect()) 
 
 
@@ -204,7 +209,7 @@ def process(rdd):
         globals()['bidMovingAverage'] = sc.accumulator(float(bidMovingAverage.value * (counter.value - 1) + bidPrice) / counter.value)
 
 
-        print (counter.value, askMovingAverage.value, bidMovingAverage.value, askExponentialMovingAverage.value, bidExponentialMovingAverage.value)
+        print ("counter: " + str(counter.value), "askMovingAverage: " + str(askMovingAverage.value), "bidMovingAverage: " + str(bidMovingAverage.value), "askExponentialMovingAverage: " + str(askExponentialMovingAverage.value), "bidExponentialMovingAverage: " + str(bidExponentialMovingAverage.value))
 
         counter.add(1)
 
