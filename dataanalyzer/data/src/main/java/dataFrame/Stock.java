@@ -52,34 +52,6 @@ public class Stock {
 		
 	}
 	
-	/**
-	 * 
-	 * @param entry
-	 * add the associated index on a particular day of the stock
-	 */
-	public void addIndexEntry(String entry, String indexName) {
-		String[] strings = entry.split(",");
-		String date = strings[0];
-		if (dataMap.containsKey(date)) {
-			DataPoint data = dataMap.get(date);
-			if (indexName.equals("spy")) {
-				data.spyClose = Double.parseDouble(strings[4]);
-			}
-			else if (indexName.equals("dji")) {
-				data.djiClose = Double.parseDouble(strings[4]);
-			}
-			else if (indexName.equals("ixic")) {
-				data.ixicClose = Double.parseDouble(strings[4]);
-			}
-			else if (indexName.equals("tnx")) {
-				data.tnxClose = Double.parseDouble(strings[4]);
-			}
-			else if (indexName.equals("vix")) {
-				data.vixClose = Double.parseDouble(strings[4]);	
-			}
-			dataMap.put(date, data);
-		}
-	}
 	
 	/**
 	 * calculate average, ratio, etc associated with each dataPoint

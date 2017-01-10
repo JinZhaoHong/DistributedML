@@ -30,36 +30,6 @@ public class DataPoint implements Comparable<DataPoint> {
 	public double rateOfChangeFiveDay; // The ratio of the current price to the price 5 quotes earlier
 	public double rateOfChangeTenDay; // The ratio of the current price to the price 10 quotes earlier
 	
-	public double spyClose; //closing price of S&P500 that day
-	public double spyMovingAverageFiveDay;
-	public double spyMovingAverageTenDay;
-	public double spyRateOfChangeFiveDay;
-	public double spyRateOfChangeTenDay;
-	
-	public double djiClose; //closing price of Dow Jones that day
-	public double djiMovingAverageFiveDay;
-	public double djiMovingAverageTenDay;
-	public double djiRateOfChangeFiveDay;
-	public double djiRateOfChangeTenDay;
-	
-	public double ixicClose; //closing price of Nasdaq that day
-	public double ixicMovingAverageFiveDay;
-	public double ixicMovingAverageTenDay;
-	public double ixicRateOfChangeFiveDay;
-	public double ixicRateOfChangeTenDay;
-	
-	public double tnxClose; //closing price of 10-yr bond that day
-	public double tnxMovingAverageFiveDay;
-	public double tnxMovingAverageTenDay;
-	public double tnxRateOfChangeFiveDay;
-	public double tnxRateOfChangeTenDay;
-	
-	public double vixClose; //closing volatility of S&P500 that day
-	public double vixMovingAverageFiveDay;
-	public double vixMovingAverageTenDay;
-	public double vixRateOfChangeFiveDay;
-	public double vixRateOfChangeTenDay;
-	
 	
 	public final double alpha = 0.20; //hyperparameter
 	
@@ -92,58 +62,11 @@ public class DataPoint implements Comparable<DataPoint> {
 					runningSum += data.close;
 				}
 				movingAverageFiveDay = (double) runningSum / (double) size;		
-			}
-			
-			int spyRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : fiveDayList) {
-					spyRunningSum += data.spyClose;
-				}
-				spyMovingAverageFiveDay = (double) spyRunningSum / (double) size;		
-			}
-			
-			
-			int djiRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : fiveDayList) {
-					djiRunningSum += data.djiClose;
-				}
-				djiMovingAverageFiveDay = (double) djiRunningSum / (double) size;		
-			}
-			
-			int ixicRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : fiveDayList) {
-					ixicRunningSum += data.ixicClose;
-				}
-				ixicMovingAverageFiveDay = (double) ixicRunningSum / (double) size;		
-			}
-			
-			
-			int tnxRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : fiveDayList) {
-					tnxRunningSum += data.tnxClose;
-				}
-				tnxMovingAverageFiveDay = (double) tnxRunningSum / (double) size;		
-			}
-			
-			int vixRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : fiveDayList) {
-					vixRunningSum += data.vixClose;
-				}
-				vixMovingAverageFiveDay = (double) vixRunningSum / (double) size;		
-			}
-			
+			}		
 			
 		} else {
 			movingAverageFiveDay = close;
-			spyMovingAverageFiveDay = spyClose;
-			djiMovingAverageFiveDay = djiClose;
-			ixicMovingAverageFiveDay = ixicClose;
-			tnxMovingAverageFiveDay = tnxClose;
-			vixMovingAverageFiveDay = vixClose;
+
 		}
 	}
 	
@@ -164,54 +87,8 @@ public class DataPoint implements Comparable<DataPoint> {
 				
 			}
 			
-			int spyRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : tenDayList) {
-					spyRunningSum += data.spyClose;
-				}
-				spyMovingAverageTenDay = (double) spyRunningSum / (double) size;		
-			}
-			
-			
-			int djiRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : tenDayList) {
-					djiRunningSum += data.djiClose;
-				}
-				djiMovingAverageTenDay = (double) djiRunningSum / (double) size;		
-			}
-			
-			int ixicRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : tenDayList) {
-					ixicRunningSum += data.ixicClose;
-				}
-				ixicMovingAverageTenDay = (double) ixicRunningSum / (double) size;		
-			}
-			
-			
-			int tnxRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : tenDayList) {
-					tnxRunningSum += data.tnxClose;
-				}
-				tnxMovingAverageTenDay = (double) tnxRunningSum / (double) size;		
-			}
-			
-			int vixRunningSum = 0;
-			if (size != 0) {
-				for (DataPoint data : tenDayList) {
-					vixRunningSum += data.vixClose;
-				}
-				vixMovingAverageTenDay = (double) vixRunningSum / (double) size;		
-			}
 		} else {
 			movingAverageTenDay = close;
-			spyMovingAverageTenDay = spyClose;
-			djiMovingAverageTenDay = djiClose;
-			ixicMovingAverageTenDay = ixicClose;
-			tnxMovingAverageTenDay = tnxClose;
-			vixMovingAverageTenDay = vixClose;
 		}
 	}
 	
@@ -241,29 +118,8 @@ public class DataPoint implements Comparable<DataPoint> {
 			if (last.close != 0) {
 				rateOfChangeFiveDay = (close - last.close) / last.close;
 			}
-			if (last.spyClose != 0) {
-				spyRateOfChangeFiveDay = (spyClose - last.spyClose) / last.spyClose;
-			}
-			if (last.djiClose != 0) {
-				djiRateOfChangeFiveDay = (djiClose - last.djiClose) / last.djiClose;
-			}
-			if (last.ixicClose != 0) {
-				ixicRateOfChangeFiveDay = (ixicClose - last.ixicClose) / last.ixicClose;
-			}
-			if (last.tnxClose != 0) {
-				tnxRateOfChangeFiveDay = (tnxClose - last.tnxClose) / last.tnxClose;
-			}
-			if (last.vixClose != 0) {
-				vixRateOfChangeFiveDay = (vixClose - last.vixClose) / last.vixClose;
-			}
 		} else {
 			rateOfChangeFiveDay = 0;
-			spyRateOfChangeFiveDay = 0;
-			djiRateOfChangeFiveDay = 0;
-			ixicRateOfChangeFiveDay = 0;
-			tnxRateOfChangeFiveDay = 0;
-			vixRateOfChangeFiveDay = 0;
-			
 		}
 		
 		if (tenDayList != null) {
@@ -271,29 +127,9 @@ public class DataPoint implements Comparable<DataPoint> {
 			if (last.close != 0) {
 				rateOfChangeTenDay = (close - last.close) / last.close;
 			}
-			if (last.spyClose != 0) {
-				spyRateOfChangeTenDay = (spyClose - last.spyClose) / last.spyClose;
-			}
-			if (last.djiClose != 0) {
-				djiRateOfChangeTenDay = (djiClose - last.djiClose) / last.djiClose;
-			}
-			if (last.ixicClose != 0) {
-				ixicRateOfChangeTenDay = (ixicClose - last.ixicClose) / last.ixicClose;
-			}
-			if (last.tnxClose != 0) {
-				tnxRateOfChangeTenDay = (tnxClose - last.tnxClose) / last.tnxClose;
-			}
-			if (last.vixClose != 0) {
-				vixRateOfChangeTenDay = (vixClose - last.vixClose) / last.vixClose;
-			}
 		} else {
 		
 			rateOfChangeTenDay = 0;
-			spyRateOfChangeTenDay = 0;
-			djiRateOfChangeTenDay = 0;
-			ixicRateOfChangeTenDay = 0;
-			tnxRateOfChangeTenDay = 0;
-			vixRateOfChangeTenDay = 0;
 		}
 		
 	}

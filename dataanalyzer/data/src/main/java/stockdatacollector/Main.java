@@ -183,15 +183,7 @@ public class Main {
 				DataPoint data = stock.dataMap.get(date);
 				String line = data.date + "," + data.open + "," + data.high + "," + data.low + "," + data.close + "," 
 				+ data.volume + "," + data.movingAverageFiveDay + "," + data.movingAverageTenDay + "," 
-				+ data.exponentialMovingAverage + "," + data.rateOfChangeFiveDay + "," + data.rateOfChangeTenDay + "," 
-				+ data.spyClose + "," + data.spyMovingAverageFiveDay + "," + data.spyMovingAverageTenDay + "," 
-				+ data.spyRateOfChangeFiveDay + "," + data.spyRateOfChangeTenDay + "," + data.djiClose + "," 
-				+ data.djiMovingAverageFiveDay + "," + data.djiMovingAverageTenDay + "," + data.djiRateOfChangeFiveDay + "," 
-				+ data.djiRateOfChangeTenDay + "," + data.ixicClose + "," + data.ixicMovingAverageFiveDay + "," 
-				+ data.ixicMovingAverageTenDay + "," + data.ixicRateOfChangeFiveDay + "," + data.ixicRateOfChangeTenDay + "," 
-				+ data.tnxClose + "," + data.tnxMovingAverageFiveDay + "," + data.tnxMovingAverageTenDay + "," 
-				+ data.tnxRateOfChangeFiveDay + "," + data.tnxRateOfChangeTenDay + "," + data.vixClose + "," 
-				+ data.vixMovingAverageFiveDay + "," + data.vixMovingAverageTenDay + "," + data.vixRateOfChangeFiveDay + "," 
+				+ data.exponentialMovingAverage + "," + data.rateOfChangeFiveDay + "," + data.rateOfChangeTenDay + ","  
 				+ data.rateOfChangeTenDay + "," + data.label + " \n";
 				
 				writer.write(line);

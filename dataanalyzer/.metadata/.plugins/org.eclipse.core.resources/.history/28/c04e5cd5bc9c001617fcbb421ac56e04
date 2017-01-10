@@ -1,5 +1,0 @@
-package dataFrame;
-
-public interface StockObject {
-
-}
