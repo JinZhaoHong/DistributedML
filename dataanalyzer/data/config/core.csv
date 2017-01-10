@@ -1,7 +1,0 @@
-fs.defaultFS,hdfs://localhost:9000
-root,hdfs://localhost:9000/user/zhjin/mlinput/data
-stockfile,msft.csv
-stockname,Microsoft
-ticker,MSFT
-indexlist,spy.csv dji.csv ixic.csv tnx.csv vix.csv
-destinationfile,msft_combined.csv
