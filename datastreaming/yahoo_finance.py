@@ -40,6 +40,6 @@ if __name__ == "__main__":
         print "Getting and Sending quotes info to localhost:9092"
         quote = api.get()
         producer.send(quote)
-        time.sleep(30)
+        time.sleep(60)
 
 

@@ -20,7 +20,7 @@ and store dataframes to Apache Cassandra
 
 conf = SparkConf().setAppName("Ticker Quote Streaming Processor")#.set("spark.cassandra.connection.host", "127.0.0.1")
 sc = SparkContext(conf=conf)
-ssc = StreamingContext(sc, 30)
+ssc = StreamingContext(sc, 60)
 
 
 # This will attempt to connection to a Cassandra instance on the local machine (127.0.0.1)

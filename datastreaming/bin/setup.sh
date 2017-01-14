@@ -18,4 +18,4 @@ pip install cassandra-driver
 # npm install cookie-parser
 # npm install multer
 # npm install cassandra-driver
-
+# npm install techan

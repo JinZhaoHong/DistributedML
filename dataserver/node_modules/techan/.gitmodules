@@ -1,0 +1,90 @@
+[submodule "examples/plot/candlestick"]
+	path = examples/plot/candlestick
+	url = https://gist.github.com/27c4a333b0e0813e093d.git
+[submodule "examples/plot/volume"]
+	path = examples/plot/volume
+	url = https://gist.github.com/f9cb47fa9e32ce34011a.git
+[submodule "examples/plot/plots"]
+	path = examples/plot/plots
+	url = https://gist.github.com/edf630690c10b89be390.git
+[submodule "examples/plot/ohlc"]
+	path = examples/plot/ohlc
+	url = https://gist.github.com/06ad3573c0053d0e1fc7.git
+[submodule "examples/plot/close"]
+	path = examples/plot/close
+	url = https://gist.github.com/af8674d57980790137a0.git
+[submodule "examples/scale/zoom"]
+	path = examples/scale/zoom
+	url = https://gist.github.com/a48008ea8e2c832144db.git
+[submodule "examples/indicator/macd"]
+	path = examples/indicator/macd
+	url = https://gist.github.com/10d701ccb3b8b1e99878.git
+[submodule "examples/indicator/rsi"]
+	path = examples/indicator/rsi
+	url = https://gist.github.com/6da267f1c51a13dea35b.git
+[submodule "examples/scale/financetime"]
+	path = examples/scale/financetime
+	url = https://gist.github.com/17be8c0973ac92acd6e5.git
+[submodule "examples/plot/multiplots"]
+	path = examples/plot/multiplots
+	url = https://gist.github.com/274b54b4d2c2ffa19fca.git
+[submodule "examples/plot/trendline"]
+	path = examples/plot/trendline
+	url = https://gist.github.com/69f49097e9bb5c0c6e4d.git
+[submodule "examples/plot/supstance"]
+	path = examples/plot/supstance
+	url = https://gist.github.com/10194a84a3e46fe127d4.git
+[submodule "examples/plot/axisannotation"]
+	path = examples/plot/axisannotation
+	url = https://gist.github.com/06d462978e089323a116.git
+[submodule "examples/plot/crosshair"]
+	path = examples/plot/crosshair
+	url = https://gist.github.com/045f550b72ad46301130.git
+[submodule "examples/plot/feed"]
+	path = examples/plot/feed
+	url = https://gist.github.com/95f1f22130fb1a3a8181.git
+[submodule "examples/indicator/ichimoku"]
+	path = examples/indicator/ichimoku
+	url = https://gist.github.com/ef212e7c26d2b7ba5403.git
+[submodule "examples/indicator/atr"]
+	path = examples/indicator/atr
+	url = https://gist.github.com/5cb069d5cc38397d6fc1.git
+[submodule "examples/indicator/atrtrailingstop"]
+	path = examples/indicator/atrtrailingstop
+	url = https://gist.github.com/55cacf3a2a4881f0be66.git
+[submodule "examples/scale/brush"]
+	path = examples/scale/brush
+	url = https://gist.github.com/a5acb93bae58f0805b53.git
+[submodule "examples/node/candlestick"]
+	path = examples/node/candlestick
+	url = https://gist.github.com/ad585d6d68cf8a894207.git
+[submodule "examples/svg/arrow"]
+	path = examples/svg/arrow
+	url = https://gist.github.com/26f67acd490c4e48fe0e.git
+[submodule "examples/plot/tick"]
+	path = examples/plot/tick
+	url = https://gist.github.com/f6b6f776becc34b9c71a.git
+[submodule "examples/plot/tradearrow"]
+	path = examples/plot/tradearrow
+	url = https://gist.github.com/3c0eefdd77a6380b1a35.git
+[submodule "examples/indicator/williams"]
+	path = examples/indicator/williams
+	url = https://gist.github.com/c12073b8800f50dd9de03ce590073ab6.git
+[submodule "examples/indicator/stochastic"]
+	path = examples/indicator/stochastic
+	url = https://gist.github.com/ca282714b8a0580e56623053b18ce8f9.git
+[submodule "examples/indicator/adx"]
+	path = examples/indicator/adx
+	url = https://gist.github.com/509587c3348c09463b236321e8df2679.git
+[submodule "examples/indicator/aroon"]
+	path = examples/indicator/aroon
+	url = https://gist.github.com/f18938b1adeb27e0b6fd.git
+[submodule "examples/indicator/bollinger"]
+	path = examples/indicator/bollinger
+	url = https://gist.github.com/2da5cf683eb1e0589fa10418d442479c.git
+[submodule "examples/scale/zoom-d3-scale"]
+	path = examples/scale/zoom-d3-scale
+	url = https://gist.github.com/94e0a802f9160ce8a4eb8b80d9ad0a0e.git
+[submodule "examples/indicator/heikinashi"]
+	path = examples/indicator/heikinashi
+	url = https://gist.github.com/b0162d7d7a37dac058a78ee96d186a85.git
