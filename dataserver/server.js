@@ -1,5 +1,3 @@
-var dir = "/Users/zhjin/Desktop/projects/DistributedML/";
-
 var express = require('express');
 
 var app = express();
@@ -12,7 +10,8 @@ var client = new cassandra.Client({ contactPoints: ['localhost'], keyspace: KEYS
 
 //To serve static files such as images, CSS files, and JavaScript files, use the express.static built-in middleware function in Express.
 //http://expressjs.com/en/starter/static-files.html
-app.use(express.static(dir));
+
+app.use(express.static(__dirname + '/views'));
 
 
 app.get("/quotes/:symbol/:state", function(req, res) {
@@ -35,11 +34,12 @@ app.get("/quotes/:symbol/:state", function(req, res) {
 
 });
 
-var server = app.listen(8081, function() {
+var server = app.listen(5000, function() {
 	var host = server.address().address;
 	var port = server.address().port;
 
 	console.log("Example app listening at http://%s:%s", host, port);
+	//console.log('Node app is running on port', app.get('port'));
 
 })
 

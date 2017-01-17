@@ -1,0 +1,30 @@
+{
+  "name": "dataserver",
+  "version": "1.0.0",
+  "description": "Stock Data API",
+  "main": "server.js",
+  "dependencies": {
+    "cassandra-driver": "^3.1.6",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "multer": "^1.2.1",
+    "techan": "^0.8.0"
+  },
+
+  "engines": {
+    "node": "6.9.2"
+  },
+
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "stock",
+    "API"
+  ],
+  "author": "Zhaohong Jin",
+  "license": "ISC"
+}
